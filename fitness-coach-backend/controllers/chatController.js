@@ -104,8 +104,8 @@ exports.verifyPhpConnection = async (req, res) => {
   try {
     console.log(`[ChatController] Verifying PHP connection at ${new Date().toISOString()}`);
     
-    // Try to connect to the PHP backend
-    const response = await axios.get(`${PHP_API_URL}/chat.php?check=connection`);
+    // Try to connect to the PHP backend's health check endpoint
+    const response = await axios.get(`${PHP_API_URL}/health.php`);
     
     console.log(`[ChatController] PHP connection verified with status: ${response.status}`);
     return res.status(200).json({
