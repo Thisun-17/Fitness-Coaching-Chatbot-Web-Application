@@ -50,26 +50,19 @@ const ChatInterface = () => {
   };
 
   return (
-    <div className="flex flex-col h-[600px] md:h-[650px]">
-      <div className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white p-6 rounded-t-xl">
-        <div className="flex items-center space-x-2 mb-1">
-          <div className="w-3 h-3 rounded-full bg-red-400"></div>
-          <div className="w-3 h-3 rounded-full bg-yellow-400"></div>
-          <div className="w-3 h-3 rounded-full bg-green-400"></div>
-        </div>
-        <h2 className="text-2xl font-bold">Fitness Coach</h2>
-        <p className="text-blue-100 text-sm">Ask me anything about fitness, nutrition, or workouts</p>
+    <div className="flex flex-col h-full bg-gray-100 rounded-lg shadow-md">
+      <div className="bg-blue-600 text-white p-4 rounded-t-lg">
+        <h2 className="text-xl font-bold">Fitness Coach</h2>
+        <p className="text-sm">Ask me anything about fitness, nutrition, or workouts</p>
       </div>
       
-      <div className="flex-1 overflow-y-auto p-6 space-y-6 bg-gray-50">
+      <div className="flex-1 overflow-y-auto p-4 space-y-4">
         {messages.map(message => (
           <ChatMessage key={message.id} message={message} />
         ))}
         {loading && (
-          <div className="flex items-center space-x-2">
-            <div className="rounded-full h-3 w-3 bg-blue-500 animate-pulse"></div>
-            <div className="rounded-full h-3 w-3 bg-blue-500 animate-pulse delay-75"></div>
-            <div className="rounded-full h-3 w-3 bg-blue-500 animate-pulse delay-150"></div>
+          <div className="flex justify-center">
+            <div className="animate-pulse text-gray-500">Coach is typing...</div>
           </div>
         )}
         <div ref={messagesEndRef} />
