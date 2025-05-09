@@ -16,4 +16,11 @@ router.post('/', chatController.processMessage);
  */
 router.get('/history', chatController.getChatHistory);
 
+/**
+ * @route   GET /api/chat/verify-php
+ * @desc    Verify connection to the PHP backend
+ * @access  Public
+ */
+router.get('/verify-php', chatController.verifyPhpConnection);
+
 module.exports = router;
