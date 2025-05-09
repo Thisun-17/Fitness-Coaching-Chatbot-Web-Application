@@ -133,3 +133,56 @@ exports.verifyPhpConnection = async (req, res) => {
     }
   }
 };
+
+/**
+ * Test PHP API connectivity using the test endpoint
+ * @param {Object} req - Express request object
+ * @param {Object} res - Express response object
+ */
+exports.testPhpConnection = async (req, res) => {
+  try {
+    console.log(`[ChatController] Testing PHP API connectivity at ${new Date().toISOString()}`);
+    console.log(`[ChatController] Calling PHP test endpoint: ${PHP_API_URL}/test.php`);
+    
+    // Try to connect to the PHP test endpoint
+    const response = await axios.get(`${PHP_API_URL}/test.php`);
+    
+    console.log(`[ChatController] PHP test endpoint responded with status: ${response.status}`);
+    console.log(`[ChatController] PHP test response:`, response.data);
+    
+    return res.status(200).json({
+      status: 'success',
+      message: 'PHP API test successful',
+      phpResponse: response.data
+    });
+  } catch (error) {
+    console.error('[ChatController] PHP test failed:');
+    
+    if (error.response) {
+      console.error(`[ChatController] PHP API responded with status: ${error.response.status}`);
+      console.error('[ChatController] PHP API error response:', error.response.data);
+      return res.status(200).json({
+        status: 'error',
+        message: 'PHP API returned an error response',
+        phpStatus: error.response.status,
+        phpError: error.response.data
+      });
+    } else if (error.request) {
+      console.error('[ChatController] No response received from PHP API');
+      console.error('[ChatController] Request details:', error.request._currentUrl);
+      return res.status(503).json({
+        status: 'error',
+        message: 'PHP API not responding',
+        details: 'No response received from the PHP backend',
+        requestUrl: error.request._currentUrl
+      });
+    } else {
+      console.error('[ChatController] Error setting up request:', error.message);
+      return res.status(500).json({
+        status: 'error',
+        message: 'Request setup error',
+        details: error.message
+      });
+    }
+  }
+};

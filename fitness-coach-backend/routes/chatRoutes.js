@@ -23,4 +23,11 @@ router.get('/history', chatController.getChatHistory);
  */
 router.get('/verify-php', chatController.verifyPhpConnection);
 
+/**
+ * @route   GET /api/chat/test-php
+ * @desc    Test the PHP API connectivity with the test endpoint
+ * @access  Public
+ */
+router.get('/test-php', chatController.testPhpConnection);
+
 module.exports = router;
